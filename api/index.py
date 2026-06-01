@@ -20,35 +20,37 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         stats = get_github_stats("Sarvesh2005-code")
         
+        # Split URLs to prevent rich-text editors from auto-formatting them
         w3_namespace = "http://" + "www.w3.org/2000/svg"
         my_website = "https://" + "sarvy.vercel.app/"
         
+        # Complex White Phantom Ghost (35 chars wide, 25 lines)
         ascii_art_lines = [
-            r"       g@M%@%%@N%Nw,,",
-            r"     ,M*|`||*%gNM=]mM%g||%N,",
-            r"     p!``  `! |``` ```|||jhlj%w",
-            r"   ,@L     ,,       ```!`|j%M]%M",
-            r"  ]j`` .,wp@pw,     `    ````|%Wg",
-            r"/{||]@@@@@@@@@@pp.           |||||",
-            r"` ' ]@@@@@@@@@@@@@p     ,  ,```",
-            r"  :]%@@@@@%%%%%%k%h  '*||mkr    *",
-            r"  j%M`      |jkk'  ~nrn=|i    ;`",
-            r"!  jrr*^`           `\"! L'':!",
-            r" j  lp;,.  ,/ @@    ,;\nmy  \" ,~",
-            r" i r @@@@mmHM @@@@ `^****M*,p ;,",
-            r" | ]@@@HHH]g@M%%%%%H,jmgpmb%  j",
-            r" ;;;%%%%%%k%@[,.n|;.;j%%k|k%%',[",
-            r"  H|%%k%%%j%k||,;;j;!!'|%ij}}]@",
-            r"  \"djjmkL,\"]]][,,,,wwxw;|#kjk`",
-            r"    %;%km%%%%M%M|%%jkkii|||[",
-            r"     kjj%kkkl!|||||||j|||\"",
-            r"      |jm%H@@@b%%kkmk%i|!,[",
-            r"       @p|j%%%%jkk|||j*``;j[",
-            r"       ]@@@g|```````   ,,;j%k",
-            r"       @@@@@mgmp;,,,,:;jj%%k%",
-            r"      @@@@@@@@@%%kgki!|jjjj%k%@ .",
-            r" ^['' %@@@HH%b%k{illljkjj%%% ; `,.",
-            r"=['` . %HH%%%%%H@gkilljjj%kk%\".  `'i"
+            r"                                   ",
+            r"            .o8888888o.            ",
+            r"          .8888888888888.          ",
+            r"         .888888888888888.         ",
+            r"        .88888888888888888.        ",
+            r"        8888888888888888888        ",
+            r"        8888888888888888888        ",
+            r"        888888'  `88'  `888        ",
+            r"        888888  # 88 #  888        ",
+            r"        888888.  .88.  .888        ",
+            r"        8888888888888888888        ",
+            r"        `88888888888888888'        ",
+            r"          `8888888888888'          ",
+            r"        _   `888888888'   _        ",
+            r"       / \   888888888   / \       ",
+            r"      / / \  888888888  / \ \      ",
+            r"     / /   | 888888888 |   \ \     ",
+            r"    | /    | 888888888 |    \ |    ",
+            r"    |/     | 888888888 |     \|    ",
+            r"    /      | 888888888 |      \    ",
+            r"   /       | 888888888 |       \   ",
+            r"  /________/___________\________\  ",
+            r"                                   ",
+            r"                                   ",
+            r"                                   "
         ]
 
         tspan_blocks = ""
@@ -62,7 +64,7 @@ class handler(BaseHTTPRequestHandler):
         <svg width="900" height="500" xmlns="{w3_namespace}">
           <style>
             .text {{ font-family: 'Courier New', Courier, monospace; font-size: 14px; fill: #C9D1D9; }}
-            .ascii {{ font-family: 'Courier New', Courier, monospace; font-size: 12px; fill: #58A6FF; }}
+            .ascii {{ font-family: 'Courier New', Courier, monospace; font-size: 12px; fill: #F0F6FC; }} /* Updated to White */
             .blue {{ fill: #58A6FF; }}
             .green {{ fill: #7EE787; }}
             .orange {{ fill: #E3B341; }}
