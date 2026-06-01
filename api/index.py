@@ -20,8 +20,47 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         stats = get_github_stats("Sarvesh2005-code")
         
+        # In SVG, regular newlines don't work inside <text> tags. 
+        # We loop through each line and wrap it in a <tspan> to push it down row by row.
+        ascii_art_lines = [
+            r"       g@M%@%%@N%Nw,,",
+            r"     ,M*|`||*%gNM=]mM%g||%N,",
+            r"     p!``  `! |``` ```|||jhlj%w",
+            r"   ,@L     ,,       ```!`|j%M]%M",
+            r"  ]j`` .,wp@pw,     `    ````|%Wg",
+            r"/{||]@@@@@@@@@@pp.           |||||",
+            r"` ' ]@@@@@@@@@@@@@p     ,  ,```",
+            r"  :]%@@@@@%%%%%%k%h  '*||mkr    *",
+            r"  j%M`      |jkk'  ~nrn=|i    ;`",
+            r"!  jrr*^`           `\"! L'':!",
+            r" j  lp;,.  ,/ @@    ,;\nmy  \" ,~",
+            r" i r @@@@mmHM @@@@ `^****M*,p ;,",
+            r" | ]@@@HHH]g@M%%%%%H,jmgpmb%  j",
+            r" ;;;%%%%%%k%@[,.n|;.;j%%k|k%%',[",
+            r"  H|%%k%%%j%k||,;;j;!!'|%ij}}]@",
+            r"  \"djjmkL,\"]]][,,,,wwxw;|#kjk`",
+            r"    %;%km%%%%M%M|%%jkkii|||[",
+            r"     kjj%kkkl!|||||||j|||\"",
+            r"      |jm%H@@@b%%kkmk%i|!,[",
+            r"       @p|j%%%%jkk|||j*``;j[",
+            r"       ]@@@g|```````   ,,;j%k",
+            r"       @@@@@mgmp;,,,,:;jj%%k%",
+            r"      @@@@@@@@@%%kgki!|jjjj%k%@ .",
+            r" ^['' %@@@HH%b%k{illljkjj%%% ; `,.",
+            r"=['` . %HH%%%%%H@gkilljjj%kk%\".  `'i"
+        ]
+
+        # Generate the exact y-coordinates for each line so they stack perfectly
+        tspan_blocks = ""
+        y_pos = 40
+        for line in ascii_art_lines:
+            # Escape HTML characters so it doesn't break the SVG
+            clean_line = line.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            tspan_blocks += f'<tspan x="20" y="{y_pos}">{clean_line}</tspan>\n          '
+            y_pos += 14  # 14 pixels of space between each line
+
         svg_content = f"""
-        <svg width="850" height="420" xmlns="http://www.w3.org/2000/svg">
+        <svg width="850" height="420" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)">
           <style>
             .text {{ font-family: 'Courier New', Courier, monospace; font-size: 13px; fill: #C9D1D9; }}
             .ascii {{ font-family: 'Courier New', Courier, monospace; font-size: 11px; fill: #58A6FF; }}
@@ -32,32 +71,8 @@ class handler(BaseHTTPRequestHandler):
           </style>
           <rect width="850" height="420" rx="10" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
           
-          <text x="20" y="40" class="ascii" xml:space="preserve">
-             g@M%@%%@N%Nw,,
-           ,M*|`||*%gNM=]mM%g||%N,
-           p!``  `! |``` ```|||jhlj%w
-         ,@L     ,,       ```!`|j%M]%M
-        ]j`` .,wp@pw,     `    ````|%Wg
-      /{{||]@@@@@@@@@@pp.           |||||
-      ` ' ]@@@@@@@@@@@@@p     ,  ,```
-        :]%@@@@@%%%%%%k%h  '*||mkr    *
-        j%M`      |jkk'  ~nrn=|i    ;`
-      !  jrr*^`           `"! L'':!
-       j  lp;,.  ,/ @@    ,;\\nmy  " ,~
-       i r @@@@mmHM @@@@ `^****M*,p ;,
-       | ]@@@HHH]g@M%%%%%H,jmgpmb%  j
-       ;;%%%%%%k%@[,.n|;.;j%%k|k%%',[
-        H|%%k%%%j%k||,;;j;!!'|%ij}}]@
-        "djjmkL,"]]][,,,,wwxw;|#kjk`
-          %;%km%%%%M%M|%%jkkii|||[
-           kjj%kkkl!|||||||j|||"
-            |jm%H@@@b%%kkmk%i|!,[
-             @p|j%%%%jkk|||j*``;j[
-             ]@@@g|```````   ,,;j%k
-             @@@@@mgmp;,,,,:;jj%%k%
-            @@@@@@@@@%%kgki!|jjjj%k%@ .
-       ^['' %@@@HH%b%k{{illljkjj%%% ; `,.
-      =['` . %HH%%%%%H@gkilljjj%kk%".  `'i
+          <text class="ascii" xml:space="preserve">
+          {tspan_blocks}
           </text>
 
           <text x="320" y="50" class="text" xml:space="preserve"><tspan class="blue">Sarvesh</tspan>@<tspan class="blue">Developer</tspan> <tspan class="grey">--------------------------------</tspan></text>
