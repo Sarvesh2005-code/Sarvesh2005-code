@@ -20,8 +20,6 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         stats = get_github_stats("Sarvesh2005-code")
         
-        # In SVG, regular newlines don't work inside <text> tags. 
-        # We loop through each line and wrap it in a <tspan> to push it down row by row.
         ascii_art_lines = [
             r"       g@M%@%%@N%Nw,,",
             r"     ,M*|`||*%gNM=]mM%g||%N,",
@@ -50,14 +48,12 @@ class handler(BaseHTTPRequestHandler):
             r"=['` . %HH%%%%%H@gkilljjj%kk%\".  `'i"
         ]
 
-        # Generate the exact y-coordinates for each line so they stack perfectly
         tspan_blocks = ""
         y_pos = 40
         for line in ascii_art_lines:
-            # Escape HTML characters so it doesn't break the SVG
             clean_line = line.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
             tspan_blocks += f'<tspan x="20" y="{y_pos}">{clean_line}</tspan>\n          '
-            y_pos += 14  # 14 pixels of space between each line
+            y_pos += 14  
 
         svg_content = f"""
         <svg width="850" height="420" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)">
