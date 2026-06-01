@@ -1,0 +1,77 @@
+import urllib.request
+import json
+from http.server import BaseHTTPRequestHandler
+
+def get_github_stats(username):
+    url = f"https://api.github.com/users/{username}"
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    try:
+        with urllib.request.urlopen(req) as response:
+            data = json.loads(response.read())
+            return {
+                "repos": data.get("public_repos", 0), 
+                "followers": data.get("followers", 0),
+                "status": "Online"
+            }
+    except Exception:
+        return {"repos": "?", "followers": "?", "status": "API Limit/Offline"}
+
+class handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        stats = get_github_stats("Sarvesh2005-code")
+        
+        # Replace the ASCII art below with your generated face
+        svg_content = f"""
+        <svg width="850" height="420" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .text {{ font-family: 'Courier New', Courier, monospace; font-size: 13px; fill: #C9D1D9; }}
+            .blue {{ fill: #58A6FF; }}
+            .green {{ fill: #7EE787; }}
+            .orange {{ fill: #D2A8FF; }}
+            .grey {{ fill: #8B949E; }}
+          </style>
+          <rect width="850" height="420" rx="10" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+          
+          <!-- ASCII Face Silhouette (Replace this block) -->
+          <text x="40" y="60" class="text blue" xml:space="preserve">
+         ,,,,, 
+       ,;;;;;;;, 
+      ;;;;;;;;;;; 
+     ;;;;;'''';;;; 
+     ;;;;;    ;;;; 
+     `;;;;,  ,;;;' 
+       `;;;;;;;;' 
+         `''''` 
+          </text>
+
+          <!-- System & Profile Info -->
+          <text x="320" y="50" class="text" xml:space="preserve"><tspan class="blue">Sarvesh</tspan>@<tspan class="blue">Developer</tspan> <tspan class="grey">--------------------------------</tspan></text>
+          
+          <text x="320" y="80" class="text" xml:space="preserve">. <tspan class="orange">OS:</tspan> .......................... Windows 11, Kali Linux</text>
+          <text x="320" y="100" class="text" xml:space="preserve">. <tspan class="orange">Uptime:</tspan> .................................... 20 years</text>
+          <text x="320" y="120" class="text" xml:space="preserve">. <tspan class="orange">IDE:</tspan> ............................... Eclipse, VS Code</text>
+          
+          <text x="320" y="160" class="text" xml:space="preserve">. <tspan class="orange">Languages.Programming:</tspan> ......................... Java</text>
+          <text x="320" y="180" class="text" xml:space="preserve">. <tspan class="orange">Languages.Computer:</tspan> ....... HTML, CSS, JS, SQL, JSON</text>
+          
+          <text x="320" y="220" class="text" xml:space="preserve">. <tspan class="orange">Hobbies.Software:</tspan> .... Backend Architecture, Spring Boot</text>
+          <text x="320" y="240" class="text" xml:space="preserve">. <tspan class="orange">Hobbies.Security:</tspan> ........ NIST Frameworks, Custom Firewalls</text>
+
+          <!-- Contact Info -->
+          <text x="320" y="280" class="text" xml:space="preserve"><tspan class="grey">- Contact ------------------------------------------</tspan></text>
+          <text x="320" y="310" class="text" xml:space="preserve">. <tspan class="orange">Email:</tspan> ..................... sarveshnakhale21@gmail.com</text>
+          <text x="320" y="330" class="text" xml:space="preserve">. <tspan class="orange">Website:</tspan> ...................... https://sarvy.vercel.app/</text>
+          <text x="320" y="350" class="text" xml:space="preserve">. <tspan class="orange">LinkedIn:</tspan> ............................. in/sarveshnakhale</text>
+          <text x="320" y="370" class="text" xml:space="preserve">. <tspan class="orange">X:</tspan> .......................................... @Sarvyx2005</text>
+
+          <!-- Live GitHub Stats -->
+          <text x="320" y="410" class="text" xml:space="preserve"><tspan class="grey">- GitHub Stats [{stats['status']}] ------------------------</tspan></text>
+          <text x="320" y="440" class="text" xml:space="preserve">. <tspan class="orange">Repos:</tspan> .... <tspan class="green">{stats['repos']}</tspan> | <tspan class="orange">Followers:</tspan> ....... <tspan class="green">{stats['followers']}</tspan></text>
+        </svg>
+        """
+
+        self.send_response(200)
+        self.send_header('Content-type', 'image/svg+xml')
+        self.send_header('Cache-Control', 's-maxage=3600, stale-while-revalidate')
+        self.end_headers()
+        self.wfile.write(svg_content.encode('utf-8'))
