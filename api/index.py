@@ -20,6 +20,10 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         stats = get_github_stats("Sarvesh2005-code")
         
+        # We split the URLs here so your rich-text editor doesn't accidentally format them!
+        w3_namespace = "http://" + "www.w3.org/2000/svg"
+        my_website = "https://" + "sarvy.vercel.app/"
+        
         ascii_art_lines = [
             r"       g@M%@%%@N%Nw,,",
             r"     ,M*|`||*%gNM=]mM%g||%N,",
@@ -56,7 +60,7 @@ class handler(BaseHTTPRequestHandler):
             y_pos += 14  
 
         svg_content = f"""
-        <svg width="850" height="420" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)">
+        <svg width="850" height="420" xmlns="{w3_namespace}">
           <style>
             .text {{ font-family: 'Courier New', Courier, monospace; font-size: 13px; fill: #C9D1D9; }}
             .ascii {{ font-family: 'Courier New', Courier, monospace; font-size: 11px; fill: #58A6FF; }}
@@ -85,7 +89,7 @@ class handler(BaseHTTPRequestHandler):
 
           <text x="320" y="280" class="text" xml:space="preserve"><tspan class="grey">- Contact ------------------------------------------</tspan></text>
           <text x="320" y="310" class="text" xml:space="preserve">. <tspan class="orange">Email:</tspan> ..................... sarveshnakhale21@gmail.com</text>
-          <text x="320" y="330" class="text" xml:space="preserve">. <tspan class="orange">Website:</tspan> ...................... [https://sarvy.vercel.app/](https://sarvy.vercel.app/)</text>
+          <text x="320" y="330" class="text" xml:space="preserve">. <tspan class="orange">Website:</tspan> ...................... {my_website}</text>
           <text x="320" y="350" class="text" xml:space="preserve">. <tspan class="orange">LinkedIn:</tspan> ............................. in/sarveshnakhale</text>
           <text x="320" y="370" class="text" xml:space="preserve">. <tspan class="orange">X:</tspan> .......................................... @Sarvyx2005</text>
 
