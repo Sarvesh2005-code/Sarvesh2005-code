@@ -5,40 +5,34 @@ from http.server import BaseHTTPRequestHandler
 
 def get_github_stats(username):
     user_url = f"https://api.github.com/users/{username}"
+    # Fetch up to 100 repos to calculate total stars accurately
     repos_url = f"https://api.github.com/users/{username}/repos?per_page=100"
     
     req_user = urllib.request.Request(user_url, headers={'User-Agent': 'Mozilla/5.0'})
     req_repos = urllib.request.Request(repos_url, headers={'User-Agent': 'Mozilla/5.0'})
     
     try:
-        # Fetch dynamic public data
+        # 1. Fetch dynamic Repos and Followers (No token needed)
         with urllib.request.urlopen(req_user) as response:
             user_data = json.loads(response.read())
             repos = user_data.get("public_repos", 0)
             followers = user_data.get("followers", 0)
-            gists = user_data.get("public_gists", 0)
-            joined = user_data.get("created_at", "2020")[:4] # Extracts just the year
             
-        # Fetch dynamic Stars and Forks by iterating through all public repos
+        # 2. Fetch dynamic Stars by iterating through all public repos (No token needed)
         stars = 0
-        forks = 0
         with urllib.request.urlopen(req_repos) as response:
             repos_data = json.loads(response.read())
             for repo in repos_data:
                 stars += repo.get("stargazers_count", 0)
-                forks += repo.get("forks_count", 0)
                 
         return {
             "repos": str(repos), 
             "followers": str(followers),
-            "stars": str(stars),
-            "forks": str(forks),
-            "gists": str(gists),
-            "joined": str(joined),
-            "status": "SYS.ONLINE"
+            "stars": str(stars),        
+            "status": "Online"
         }
     except Exception:
-        return {"repos": "?", "followers": "?", "stars": "?", "forks": "?", "gists": "?", "joined": "?", "status": "API.LIMIT"}
+        return {"repos": "?", "followers": "?", "stars": "?", "status": "API Limit"}
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -66,9 +60,9 @@ class handler(BaseHTTPRequestHandler):
                 font-weight: bold;
                 fill: #C9D1D9;
             }}
-            /* This filter strips color from the photo so it matches the terminal aesthetic */
+            /* Softened filter to match the text tint and blend with the background */
             .profile-img {{
-                filter: grayscale(100%) contrast(120%) opacity(0.85);
+                filter: grayscale(100%) opacity(0.7) brightness(1.1);
             }}
             .blue {{ fill: #58A6FF; }}
             .green {{ fill: #7EE787; }}
@@ -105,10 +99,9 @@ class handler(BaseHTTPRequestHandler):
           <text x="660" y="595" class="text" xml:space="preserve">. <tspan class="orange">X:</tspan> ........................................... <tspan class="blue">@Sarvyx2005</tspan></text>
           <text x="660" y="630" class="text" xml:space="preserve">. <tspan class="orange">Discord:</tspan> ....................................... <tspan class="blue">@sarvy123</tspan></text>
 
-          <text x="660" y="710" class="text" xml:space="preserve"><tspan class="grey">- Public Metrics [{stats['status']}] ------------------------</tspan></text>
-          <text x="660" y="750" class="text" xml:space="preserve">. <tspan class="orange">Stars:</tspan> ...... <tspan class="green">{stats['stars'].ljust(5)}</tspan> | <tspan class="orange">Repos:</tspan> ........ <tspan class="green">{stats['repos']}</tspan></text>
-          <text x="660" y="785" class="text" xml:space="preserve">. <tspan class="orange">Forks:</tspan> ...... <tspan class="green">{stats['forks'].ljust(5)}</tspan> | <tspan class="orange">Followers:</tspan> .... <tspan class="green">{stats['followers']}</tspan></text>
-          <text x="660" y="820" class="text" xml:space="preserve">. <tspan class="orange">Gists:</tspan> ...... <tspan class="green">{stats['gists'].ljust(5)}</tspan> | <tspan class="orange">Joined:</tspan> ....... <tspan class="green">{stats['joined']}</tspan></text>
+          <text x="660" y="710" class="text" xml:space="preserve"><tspan class="grey">- GitHub Stats [{stats['status']}] --------------------------</tspan></text>
+          <text x="660" y="750" class="text" xml:space="preserve">. <tspan class="orange">Repos:</tspan> ....... <tspan class="green">{stats['repos']}</tspan> | <tspan class="orange">Followers:</tspan> ......... <tspan class="green">{stats['followers']}</tspan></text>
+          <text x="660" y="785" class="text" xml:space="preserve">. <tspan class="orange">Total Stars:</tspan> ................................. <tspan class="green">{stats['stars']}</tspan></text>
         </svg>
         """
 
