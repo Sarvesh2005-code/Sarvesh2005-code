@@ -33,7 +33,7 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         repos, followers, stars = get_github_stats("Sarvesh2005-code")
 
-        svg = f"""<svg width="1000" height="750" viewBox="0 0 1000 750" xmlns="http://www.w3.org/2000/svg">
+        svg = f"""<svg width="1000" height="780" viewBox="0 0 1000 780" xmlns="http://www.w3.org/2000/svg">
 <style>
 :root {{
  --bg: #000000;
@@ -81,7 +81,7 @@ class handler(BaseHTTPRequestHandler):
 </defs>
 
 <!-- BACKGROUND -->
-<rect width="1000" height="750" class="bg"/>
+<rect width="1000" height="780" class="bg"/>
 
 <!-- ANIMATED AURORA ORBS -->
 <g filter="url(#blur-heavy)">
@@ -150,49 +150,53 @@ class handler(BaseHTTPRequestHandler):
 <!-- === MAIN FEED (x:330, w:640) === -->
 
 <!-- About Me -->
-<rect x="330" y="40" width="640" height="160" rx="20" class="glass-card"/>
+<rect x="330" y="40" width="640" height="180" rx="20" class="glass-card"/>
 <text x="365" y="85" class="section-label">ABOUT ME</text>
-<text x="365" y="125" class="body-text">I build clean, functional backend systems and applications that solve real-world problems.</text>
-<text x="365" y="150" class="body-text">I am passionate about finding practical use cases for technology and mathematics, and I</text>
-<text x="365" y="175" class="body-text">enjoy integrating complex ideas into unified, functional solutions to build things that stand out.</text>
+<text x="365" y="120" class="body-text">I build clean, functional backend systems and</text>
+<text x="365" y="145" class="body-text">applications that solve real-world problems. I am</text>
+<text x="365" y="170" class="body-text">passionate about finding practical use cases for</text>
+<text x="365" y="195" class="body-text">technology, and integrating complex ideas into</text>
 
 <!-- Tech Stack -->
-<rect x="330" y="220" width="640" height="140" rx="20" class="glass-card"/>
-<text x="365" y="265" class="section-label">ENGINEERING STACK</text>
+<rect x="330" y="240" width="640" height="140" rx="20" class="glass-card"/>
+<text x="365" y="285" class="section-label">ENGINEERING STACK</text>
 
 <!-- Stack Badges Row 1 -->
-<rect x="365" y="285" width="80" height="32" rx="8" class="btn-fill"/><text x="382" y="306" class="badge-text">☕ Java</text>
-<rect x="460" y="285" width="130" height="32" rx="8" class="btn-fill"/><text x="477" y="306" class="badge-text">🍃 Spring Boot</text>
-<rect x="605" y="285" width="75" height="32" rx="8" class="btn-fill"/><text x="622" y="306" class="badge-text">🗄️ SQL</text>
-<rect x="695" y="285" width="165" height="32" rx="8" class="btn-fill"/><text x="712" y="306" class="badge-text">🌐 HTML / CSS / JS</text>
+<rect x="365" y="305" width="80" height="32" rx="8" class="btn-fill"/><text x="382" y="326" class="badge-text">☕ Java</text>
+<rect x="460" y="305" width="130" height="32" rx="8" class="btn-fill"/><text x="477" y="326" class="badge-text">🍃 Spring Boot</text>
+<rect x="605" y="305" width="75" height="32" rx="8" class="btn-fill"/><text x="622" y="326" class="badge-text">🗄️ SQL</text>
+<rect x="695" y="305" width="165" height="32" rx="8" class="btn-fill"/><text x="712" y="326" class="badge-text">🌐 HTML / CSS / JS</text>
 
 <!-- Stack Badges Row 2 -->
-<rect x="365" y="330" width="90" height="32" rx="8" class="btn-fill"/><text x="382" y="351" class="badge-text">📄 JSON</text>
-<rect x="470" y="330" width="90" height="32" rx="8" class="btn-fill"/><text x="487" y="351" class="badge-text">🐧 Linux</text>
-<rect x="575" y="330" width="80" height="32" rx="8" class="btn-fill"/><text x="592" y="351" class="badge-text">⚙️ Git</text>
-<rect x="670" y="330" width="120" height="32" rx="8" class="btn-fill"/><text x="687" y="351" class="badge-text">⛓️ Blockchain</text>
+<rect x="365" y="350" width="90" height="32" rx="8" class="btn-fill"/><text x="382" y="371" class="badge-text">📄 JSON</text>
+<rect x="470" y="350" width="90" height="32" rx="8" class="btn-fill"/><text x="487" y="371" class="badge-text">🐧 Linux</text>
+<rect x="575" y="350" width="80" height="32" rx="8" class="btn-fill"/><text x="592" y="371" class="badge-text">⚙️ Git</text>
+<rect x="670" y="350" width="120" height="32" rx="8" class="btn-fill"/><text x="687" y="371" class="badge-text">⛓️ Blockchain</text>
 
 <!-- Projects -->
-<rect x="330" y="380" width="640" height="330" rx="20" class="glass-card"/>
-<text x="365" y="425" class="section-label">FEATURED ARCHITECTURE</text>
+<rect x="330" y="400" width="640" height="350" rx="20" class="glass-card"/>
+<text x="365" y="445" class="section-label">FEATURED ARCHITECTURE</text>
 
 <!-- Proj 1 -->
-<rect x="365" y="450" width="570" height="70" rx="12" class="btn-fill"/>
-<text x="390" y="480" class="proj-title">subtext</text>
-<text x="390" y="505" class="proj-desc">High-performance offline relational DB that mathematically embeds SQL in images.</text>
-<text x="880" y="490" class="proj-tag">Rust • SQL</text>
+<rect x="365" y="465" width="570" height="85" rx="12" class="btn-fill"/>
+<text x="390" y="495" class="proj-title">subtext</text>
+<text x="390" y="520" class="proj-desc">High-performance offline relational DB that</text>
+<text x="390" y="540" class="proj-desc">mathematically embeds SQL in images.</text>
+<text x="880" y="505" class="proj-tag">Rust • SQL</text>
 
 <!-- Proj 2 -->
-<rect x="365" y="535" width="570" height="70" rx="12" class="btn-fill"/>
-<text x="390" y="565" class="proj-title">specter</text>
-<text x="390" y="590" class="proj-desc">Zero-cost parasitic AI engine intercepting LLM API calls to run locally on hardware.</text>
-<text x="825" y="575" class="proj-tag">TypeScript • WebGPU</text>
+<rect x="365" y="565" width="570" height="85" rx="12" class="btn-fill"/>
+<text x="390" y="595" class="proj-title">specter</text>
+<text x="390" y="620" class="proj-desc">Zero-cost parasitic AI engine intercepting</text>
+<text x="390" y="640" class="proj-desc">LLM API calls to run locally on hardware.</text>
+<text x="825" y="605" class="proj-tag">TypeScript • WebGPU</text>
 
 <!-- Proj 3 -->
-<rect x="365" y="620" width="570" height="70" rx="12" class="btn-fill"/>
-<text x="390" y="650" class="proj-title">voidNet</text>
-<text x="390" y="675" class="proj-desc">The ICMP Ghost Protocol. Unstoppable network tunnel disguised as standard Pings.</text>
-<text x="825" y="660" class="proj-tag">TypeScript • Network</text>
+<rect x="365" y="665" width="570" height="85" rx="12" class="btn-fill"/>
+<text x="390" y="695" class="proj-title">voidNet</text>
+<text x="390" y="720" class="proj-desc">The ICMP Ghost Protocol. Unstoppable network</text>
+<text x="390" y="740" class="proj-desc">tunnel disguised as standard Pings.</text>
+<text x="825" y="705" class="proj-tag">TypeScript • Network</text>
 
 </svg>
 """
