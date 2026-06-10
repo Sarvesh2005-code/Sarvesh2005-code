@@ -1,4 +1,4 @@
-# Apple Neumorphism GitHub README Card API
+# Linear-inspired Dashboard GitHub README Card API
 
 import urllib.request
 import json
@@ -33,189 +33,166 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         repos, followers, stars = get_github_stats("Sarvesh2005-code")
 
-        svg = f"""<svg width="1000" height="1070" viewBox="0 0 1000 1070" xmlns="http://www.w3.org/2000/svg">
+        svg = f"""<svg width="1000" height="750" viewBox="0 0 1000 750" xmlns="http://www.w3.org/2000/svg">
 <style>
 :root {{
- --bg: #1e1e1e;
- --text: #e0e0e0;
- --muted: #888888;
- --accent-cyan: #00ffcc;
- --accent-pink: #ff0066;
- --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+ --bg: #000000;
+ --card-fill: rgba(255, 255, 255, 0.015);
+ --text-main: #ffffff;
+ --text-muted: #a1a1aa;
+ --accent: #60a5fa;
+ --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }}
 
 * {{ font-family: var(--font-family); }}
 
-.bg-rect {{ fill: var(--bg); }}
+.bg {{ fill: var(--bg); }}
+.glass-card {{ fill: var(--card-fill); stroke: url(#card-border); stroke-width: 1px; backdrop-filter: blur(10px); }}
 
-/* Typography */
-.name {{ font-weight: 800; font-size: 42px; fill: var(--accent-cyan); letter-spacing: -1px; }}
-.title-role {{ font-weight: 600; font-size: 20px; fill: var(--muted); }}
-.section-title {{ font-weight: 700; font-size: 20px; fill: var(--accent-pink); letter-spacing: -0.5px; }}
-.body-text {{ font-weight: 400; font-size: 15px; fill: var(--text); line-height: 1.6; }}
-.stat-val {{ font-weight: 800; font-size: 48px; fill: var(--text); text-anchor: middle; letter-spacing: -2px; }}
-.stat-lbl {{ font-weight: 500; font-size: 14px; fill: var(--accent-cyan); text-anchor: middle; text-transform: uppercase; letter-spacing: 1px; }}
-.chip-text {{ font-weight: 600; font-size: 13px; fill: var(--bg); }}
-.proj-title {{ font-weight: 800; font-size: 18px; fill: var(--text); }}
-.proj-desc {{ font-weight: 400; font-size: 14px; fill: var(--muted); line-height: 1.5; }}
-.tech-item {{ font-weight: 600; font-size: 15px; fill: var(--text); }}
+.hero-name {{ font-weight: 800; font-size: 26px; fill: var(--text-main); letter-spacing: -0.5px; }}
+.hero-role {{ font-weight: 500; font-size: 15px; fill: var(--text-muted); }}
+.contact-text {{ font-weight: 500; font-size: 13px; fill: var(--text-muted); }}
 
+.section-label {{ font-weight: 600; font-size: 12px; fill: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; }}
+.body-text {{ font-weight: 400; font-size: 15px; fill: var(--text-muted); line-height: 1.6; }}
+
+.stat-val {{ font-weight: 700; font-size: 32px; fill: var(--text-main); text-anchor: middle; letter-spacing: -1px; }}
+.stat-lbl {{ font-weight: 600; font-size: 11px; fill: var(--text-muted); text-anchor: middle; letter-spacing: 1.5px; text-transform: uppercase; }}
+
+.badge-text {{ font-weight: 600; font-size: 13px; fill: var(--text-main); }}
+
+.proj-title {{ font-weight: 700; font-size: 18px; fill: var(--text-main); }}
+.proj-desc {{ font-weight: 400; font-size: 14px; fill: var(--text-muted); }}
+.proj-tag {{ font-weight: 600; font-size: 12px; fill: var(--accent); }}
+
+.btn-fill {{ fill: rgba(255,255,255,0.03); stroke: rgba(255,255,255,0.08); stroke-width: 1px; }}
+.btn-text {{ font-weight: 500; font-size: 14px; fill: var(--text-main); }}
 </style>
 
 <defs>
-<!-- Perfect Neumorphism Dual Shadow Filter -->
-<filter id="neu" x="-20%" y="-20%" width="140%" height="140%">
-  <!-- Light highlight top-left -->
-  <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blurLight"/>
-  <feOffset in="blurLight" dx="-6" dy="-6" result="offsetLight"/>
-  <feFlood flood-color="#2a2a2a" flood-opacity="1"/>
-  <feComposite in2="offsetLight" operator="in" result="shadowLight"/>
+<linearGradient id="card-border" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="rgba(255,255,255,0.15)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+</linearGradient>
 
-  <!-- Dark shadow bottom-right -->
-  <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blurDark"/>
-  <feOffset in="blurDark" dx="8" dy="8" result="offsetDark"/>
-  <feFlood flood-color="#121212" flood-opacity="1"/>
-  <feComposite in2="offsetDark" operator="in" result="shadowDark"/>
-
-  <!-- Merge -->
-  <feMerge>
-    <feMergeNode in="shadowDark"/>
-    <feMergeNode in="shadowLight"/>
-    <feMergeNode in="SourceGraphic"/>
-  </feMerge>
+<filter id="blur-heavy" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="100" />
 </filter>
 </defs>
 
 <!-- BACKGROUND -->
-<rect width="1000" height="1070" class="bg-rect"/>
+<rect width="1000" height="750" class="bg"/>
 
-<!-- ======================= NEUMORPHIC GRID ======================= -->
-
-<!-- 1. HERO BOX (Dur: 6s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="6s" repeatCount="indefinite" />
-<rect x="35" y="40" width="450" height="280" rx="32" class="bg-rect" filter="url(#neu)"/>
-<text x="65" y="100" class="title-role">Hi, I'm</text>
-<text x="65" y="150" class="name">Sarvesh Nakhale</text>
-<text x="65" y="190" class="title-role">Software Developer | Backend Dev</text>
-
-<rect x="65" y="220" width="165" height="32" rx="16" fill="var(--accent-cyan)"/>
-<text x="95" y="241" class="chip-text">📍 Maharashtra, India</text>
-
-<rect x="240" y="220" width="205" height="32" rx="16" fill="var(--accent-pink)"/>
-<text x="255" y="241" class="chip-text" style="fill:#fff;">✉️ sarveshnakhale21@gmail.com</text>
+<!-- ANIMATED AURORA ORBS -->
+<g filter="url(#blur-heavy)">
+  <!-- Indigo -->
+  <circle cx="200" cy="150" r="300" fill="#4f46e5" opacity="0.3">
+    <animate attributeName="cx" values="100; 400; 100" dur="20s" repeatCount="indefinite" />
+    <animate attributeName="cy" values="150; 50; 150" dur="25s" repeatCount="indefinite" />
+  </circle>
+  <!-- Cyan -->
+  <circle cx="800" cy="600" r="350" fill="#06b6d4" opacity="0.25">
+    <animate attributeName="cx" values="800; 600; 800" dur="22s" repeatCount="indefinite" />
+    <animate attributeName="cy" values="600; 700; 600" dur="18s" repeatCount="indefinite" />
+  </circle>
+  <!-- Rose -->
+  <circle cx="500" cy="400" r="250" fill="#e11d48" opacity="0.2">
+    <animate attributeName="cx" values="500; 700; 500" dur="24s" repeatCount="indefinite" />
+    <animate attributeName="cy" values="400; 200; 400" dur="21s" repeatCount="indefinite" />
+  </circle>
 </g>
 
-<!-- 2. ABOUT ME BOX (Dur: 7s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-6; 0,0" dur="7s" repeatCount="indefinite" />
-<rect x="515" y="40" width="450" height="280" rx="32" class="bg-rect" filter="url(#neu)"/>
-<text x="545" y="85" class="section-title">About Me</text>
-<text x="545" y="125" class="body-text">I build clean, functional backend systems and</text>
-<text x="545" y="150" class="body-text">applications that solve real-world problems.</text>
-<text x="545" y="185" class="body-text">I am passionate about finding practical use cases</text>
-<text x="545" y="210" class="body-text">for technology and mathematics, and I enjoy</text>
-<text x="545" y="235" class="body-text">integrating complex ideas into unified, functional</text>
-<text x="545" y="260" class="body-text">solutions to build things that stand out.</text>
-</g>
+<!-- ===================== DASHBOARD LAYOUT ===================== -->
 
-<!-- 3. STATS: REPOS (Dur: 5.5s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-10; 0,0" dur="5.5s" repeatCount="indefinite" />
-<rect x="35" y="350" width="210" height="200" rx="32" class="bg-rect" filter="url(#neu)"/>
-<text x="140" y="465" class="stat-val">{repos}</text>
-<text x="140" y="500" class="stat-lbl">Repositories</text>
-</g>
+<!-- === LEFT SIDEBAR (x:30, w:280) === -->
 
-<!-- 4. STATS: STARS (Dur: 6.5s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-7; 0,0" dur="6.5s" repeatCount="indefinite" />
-<rect x="275" y="350" width="210" height="200" rx="32" class="bg-rect" filter="url(#neu)"/>
-<text x="380" y="465" class="stat-val">{stars}</text>
-<text x="380" y="500" class="stat-lbl">Total Stars</text>
-</g>
+<!-- Hero Card -->
+<rect x="30" y="40" width="280" height="230" rx="20" class="glass-card"/>
+<text x="55" y="90" class="hero-name">SARVESH NAKHALE</text>
+<text x="55" y="115" class="hero-role">Software Developer | Backend</text>
 
-<!-- 5. STATS: FOLLOWERS (Dur: 7.5s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-9; 0,0" dur="7.5s" repeatCount="indefinite" />
-<rect x="515" y="350" width="210" height="200" rx="32" class="bg-rect" filter="url(#neu)"/>
-<text x="620" y="465" class="stat-val">{followers}</text>
-<text x="620" y="500" class="stat-lbl">Followers</text>
-</g>
+<text x="55" y="160" class="contact-text">📍 Maharashtra, India</text>
+<text x="55" y="190" class="contact-text">✉️ sarveshnakhale21@gmail.com</text>
 
-<!-- 6. TECH STACK (Dur: 8s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-5; 0,0" dur="8s" repeatCount="indefinite" />
-<rect x="755" y="350" width="210" height="530" rx="32" class="bg-rect" filter="url(#neu)"/>
-<text x="785" y="405" class="section-title">Tech Stack</text>
-<text x="785" y="456" class="tech-item">☕ Java</text>
-<text x="785" y="511" class="tech-item">🍃 Spring Boot</text>
-<text x="785" y="566" class="tech-item">🗄️ SQL</text>
-<text x="785" y="621" class="tech-item">🌐 HTML / CSS</text>
-<text x="785" y="676" class="tech-item">🟨 JavaScript</text>
-<text x="785" y="731" class="tech-item">📄 JSON</text>
-<text x="785" y="786" class="tech-item">🐧 Linux</text>
-<text x="785" y="841" class="tech-item">⚙️ Git</text>
-</g>
-
-<!-- 7. PROJECT 1 (Dur: 6s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-7; 0,0" dur="6s" repeatCount="indefinite" />
-<rect x="35" y="580" width="210" height="300" rx="32" class="bg-rect" filter="url(#neu)"/>
-<text x="65" y="630" class="proj-title">subtext</text>
-<text x="65" y="665" class="proj-desc">A high-performance,</text>
-<text x="65" y="685" class="proj-desc">offline relational DB</text>
-<text x="65" y="705" class="proj-desc">that embeds SQL data</text>
-<text x="65" y="725" class="proj-desc">into LSBs of images.</text>
-<text x="65" y="830" class="chip-text" style="fill:var(--accent-cyan);">Rust • SQL</text>
-</g>
-
-<!-- 8. PROJECT 2 (Dur: 7s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="7s" repeatCount="indefinite" />
-<rect x="275" y="580" width="210" height="300" rx="32" class="bg-rect" filter="url(#neu)"/>
-<text x="305" y="630" class="proj-title">specter</text>
-<text x="305" y="665" class="proj-desc">A zero-cost, parasitic</text>
-<text x="305" y="685" class="proj-desc">AI engine that runs</text>
-<text x="305" y="705" class="proj-desc">LLM API calls locally</text>
-<text x="305" y="725" class="proj-desc">on client hardware.</text>
-<text x="305" y="830" class="chip-text" style="fill:var(--accent-pink);">TypeScript • WebGPU</text>
-</g>
-
-<!-- 9. PROJECT 3 (Dur: 6.5s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-6; 0,0" dur="6.5s" repeatCount="indefinite" />
-<rect x="515" y="580" width="210" height="300" rx="32" class="bg-rect" filter="url(#neu)"/>
-<text x="545" y="630" class="proj-title">voidNet</text>
-<text x="545" y="665" class="proj-desc">The ICMP Ghost</text>
-<text x="545" y="685" class="proj-desc">Protocol. A tunnel</text>
-<text x="545" y="705" class="proj-desc">disguising traffic</text>
-<text x="545" y="725" class="proj-desc">as standard Pings.</text>
-<text x="545" y="830" class="chip-text" style="fill:var(--accent-cyan);">TypeScript • Net</text>
-</g>
-
-<!-- 10. SOCIALS BOX (Dur: 7.5s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-5; 0,0" dur="7.5s" repeatCount="indefinite" />
-<rect x="35" y="910" width="690" height="120" rx="32" class="bg-rect" filter="url(#neu)"/>
-<text x="65" y="950" class="section-title">Let's Connect</text>
-
-<text x="65" y="990" class="tech-item">🌐 GitHub</text>
-<text x="190" y="990" class="tech-item">💼 LinkedIn</text>
-<text x="320" y="990" class="tech-item">🐦 Twitter / X</text>
-<text x="460" y="990" class="tech-item">🎮 Discord</text>
-</g>
-
-<!-- 11. AVAILABILITY BOX (Dur: 6s) -->
-<g>
-<animateTransform attributeName="transform" type="translate" values="0,0; 0,-7; 0,0" dur="6s" repeatCount="indefinite" />
-<rect x="755" y="910" width="210" height="120" rx="32" class="bg-rect" filter="url(#neu)"/>
-<circle cx="860" cy="955" r="8" fill="var(--accent-cyan)">
-    <animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"/>
+<circle cx="62" cy="225" r="5" fill="#10b981">
+    <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
 </circle>
-<text x="860" y="990" class="tech-item" style="text-anchor:middle; font-size:13px;">Available for</text>
-<text x="860" y="1010" class="tech-item" style="text-anchor:middle; font-size:13px;">new opportunities</text>
-</g>
+<text x="75" y="230" class="contact-text" style="fill:var(--text-main);">Available for opportunities</text>
+
+<!-- Stats Card -->
+<rect x="30" y="290" width="280" height="120" rx="20" class="glass-card"/>
+<text x="76" y="345" class="stat-val">{repos}</text>
+<text x="76" y="375" class="stat-lbl">REPOS</text>
+
+<text x="170" y="345" class="stat-val">{stars}</text>
+<text x="170" y="375" class="stat-lbl">STARS</text>
+
+<text x="264" y="345" class="stat-val">{followers}</text>
+<text x="264" y="375" class="stat-lbl">FOLLOWS</text>
+
+<!-- Socials Card -->
+<rect x="30" y="430" width="280" height="280" rx="20" class="glass-card"/>
+<text x="55" y="475" class="section-label">LET'S CONNECT</text>
+
+<rect x="55" y="495" width="230" height="36" rx="8" class="btn-fill"/>
+<text x="75" y="518" class="btn-text">🌐 GitHub Profile</text>
+
+<rect x="55" y="545" width="230" height="36" rx="8" class="btn-fill"/>
+<text x="75" y="568" class="btn-text">💼 LinkedIn Network</text>
+
+<rect x="55" y="595" width="230" height="36" rx="8" class="btn-fill"/>
+<text x="75" y="618" class="btn-text">🐦 Twitter / X</text>
+
+<rect x="55" y="645" width="230" height="36" rx="8" class="btn-fill"/>
+<text x="75" y="668" class="btn-text">🎮 Discord Server</text>
+
+
+<!-- === MAIN FEED (x:330, w:640) === -->
+
+<!-- About Me -->
+<rect x="330" y="40" width="640" height="160" rx="20" class="glass-card"/>
+<text x="365" y="85" class="section-label">ABOUT ME</text>
+<text x="365" y="125" class="body-text">I build clean, functional backend systems and applications that solve real-world problems.</text>
+<text x="365" y="150" class="body-text">I am passionate about finding practical use cases for technology and mathematics, and I</text>
+<text x="365" y="175" class="body-text">enjoy integrating complex ideas into unified, functional solutions to build things that stand out.</text>
+
+<!-- Tech Stack -->
+<rect x="330" y="220" width="640" height="140" rx="20" class="glass-card"/>
+<text x="365" y="265" class="section-label">ENGINEERING STACK</text>
+
+<!-- Stack Badges Row 1 -->
+<rect x="365" y="285" width="80" height="32" rx="8" class="btn-fill"/><text x="382" y="306" class="badge-text">☕ Java</text>
+<rect x="460" y="285" width="130" height="32" rx="8" class="btn-fill"/><text x="477" y="306" class="badge-text">🍃 Spring Boot</text>
+<rect x="605" y="285" width="75" height="32" rx="8" class="btn-fill"/><text x="622" y="306" class="badge-text">🗄️ SQL</text>
+<rect x="695" y="285" width="165" height="32" rx="8" class="btn-fill"/><text x="712" y="306" class="badge-text">🌐 HTML / CSS / JS</text>
+
+<!-- Stack Badges Row 2 -->
+<rect x="365" y="330" width="90" height="32" rx="8" class="btn-fill"/><text x="382" y="351" class="badge-text">📄 JSON</text>
+<rect x="470" y="330" width="90" height="32" rx="8" class="btn-fill"/><text x="487" y="351" class="badge-text">🐧 Linux</text>
+<rect x="575" y="330" width="80" height="32" rx="8" class="btn-fill"/><text x="592" y="351" class="badge-text">⚙️ Git</text>
+<rect x="670" y="330" width="120" height="32" rx="8" class="btn-fill"/><text x="687" y="351" class="badge-text">⛓️ Blockchain</text>
+
+<!-- Projects -->
+<rect x="330" y="380" width="640" height="330" rx="20" class="glass-card"/>
+<text x="365" y="425" class="section-label">FEATURED ARCHITECTURE</text>
+
+<!-- Proj 1 -->
+<rect x="365" y="450" width="570" height="70" rx="12" class="btn-fill"/>
+<text x="390" y="480" class="proj-title">subtext</text>
+<text x="390" y="505" class="proj-desc">High-performance offline relational DB that mathematically embeds SQL in images.</text>
+<text x="880" y="490" class="proj-tag">Rust • SQL</text>
+
+<!-- Proj 2 -->
+<rect x="365" y="535" width="570" height="70" rx="12" class="btn-fill"/>
+<text x="390" y="565" class="proj-title">specter</text>
+<text x="390" y="590" class="proj-desc">Zero-cost parasitic AI engine intercepting LLM API calls to run locally on hardware.</text>
+<text x="825" y="575" class="proj-tag">TypeScript • WebGPU</text>
+
+<!-- Proj 3 -->
+<rect x="365" y="620" width="570" height="70" rx="12" class="btn-fill"/>
+<text x="390" y="650" class="proj-title">voidNet</text>
+<text x="390" y="675" class="proj-desc">The ICMP Ghost Protocol. Unstoppable network tunnel disguised as standard Pings.</text>
+<text x="825" y="660" class="proj-tag">TypeScript • Network</text>
 
 </svg>
 """
