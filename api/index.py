@@ -1,4 +1,4 @@
-# Ghost OS Terminal GitHub README Card API
+# Typography-Driven Minimalist Light/Dark Dashboard
 
 import urllib.request
 import json
@@ -35,136 +35,134 @@ class handler(BaseHTTPRequestHandler):
 
         svg = f"""<svg width="1000" height="850" viewBox="0 0 1000 850" xmlns="http://www.w3.org/2000/svg">
 <style>
+/* Light Mode (Default) */
 :root {{
- --bg: #050505;
- --cyan-bright: #00f0ff;
- --cyan-dim: #008b94;
- --red-alert: #ff003c;
- --text-bright: #ffffff;
- --text-dim: #a3a3a3;
- --panel-bg: rgba(0, 240, 255, 0.02);
- --font-mono: 'Courier New', Courier, Consolas, 'Fira Code', monospace;
+    --bg-color: #fdfdfd;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --text-accent: #374151;
+    --line-color: #e5e7eb;
+    --font-fam: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }}
 
-* {{ font-family: var(--font-mono); }}
+/* Dark Mode Override */
+@media (prefers-color-scheme: dark) {{
+    :root {{
+        --bg-color: #0d1117;
+        --text-main: #f9fafb;
+        --text-muted: #9ca3af;
+        --text-accent: #d1d5db;
+        --line-color: #374151;
+    }}
+}}
 
-.bg {{ fill: var(--bg); }}
+* {{ font-family: var(--font-fam); }}
 
-/* Terminal text styles */
-.term-h1 {{ font-weight: 700; font-size: 18px; fill: var(--cyan-bright); letter-spacing: 2px; }}
-.term-h2 {{ font-weight: 700; font-size: 16px; fill: var(--text-bright); letter-spacing: 1px; }}
-.term-p {{ font-weight: 400; font-size: 15px; fill: var(--text-dim); }}
-.term-glow {{ font-weight: 700; font-size: 15px; fill: var(--cyan-bright); }}
-.term-alert {{ font-weight: 700; font-size: 15px; fill: var(--red-alert); }}
+.bg {{ fill: var(--bg-color); }}
+.sep {{ stroke: var(--line-color); stroke-width: 1px; }}
 
-/* HUD paths */
-.hud-panel {{ fill: var(--panel-bg); stroke: var(--cyan-dim); stroke-width: 1px; }}
-.hud-corner {{ fill: none; stroke: var(--cyan-bright); stroke-width: 2px; }}
+.h1-mega {{ font-weight: 800; font-size: 46px; fill: var(--text-main); letter-spacing: -2px; }}
+.role-text {{ font-weight: 500; font-size: 18px; fill: var(--text-muted); letter-spacing: -0.5px; }}
+
+.body-text {{ font-weight: 400; font-size: 15px; fill: var(--text-muted); line-height: 1.6; }}
+.contact-label {{ font-weight: 600; font-size: 14px; fill: var(--text-main); letter-spacing: -0.2px; }}
+.contact-val {{ font-weight: 400; font-size: 14px; fill: var(--text-muted); }}
+
+.section-title {{ font-weight: 800; font-size: 24px; fill: var(--text-main); letter-spacing: -1px; }}
+
+.block-title {{ font-weight: 700; font-size: 16px; fill: var(--text-main); letter-spacing: -0.5px; }}
+.block-desc {{ font-weight: 400; font-size: 15px; fill: var(--text-muted); }}
+
+.stat-lbl {{ font-weight: 500; font-size: 16px; fill: var(--text-muted); }}
+.stat-val {{ font-weight: 800; font-size: 36px; fill: var(--text-main); letter-spacing: -1px; }}
+
+.proj-title {{ font-weight: 800; font-size: 20px; fill: var(--text-main); letter-spacing: -0.5px; }}
+.proj-desc {{ font-weight: 400; font-size: 15px; fill: var(--text-muted); }}
+.proj-tech {{ font-weight: 600; font-size: 14px; fill: var(--text-accent); }}
 </style>
 
-<defs>
-<linearGradient id="radar-sweep" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.3"/>
-    <stop offset="100%" stop-color="#050505" stop-opacity="0"/>
-</linearGradient>
-
-<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0, 240, 255, 0.05)" stroke-width="1"/>
-</pattern>
-</defs>
-
 <!-- BACKGROUND -->
-<rect width="1000" height="850" class="bg"/>
-<rect width="1000" height="850" fill="url(#grid)"/>
+<rect width="1000" height="850" class="bg" />
 
-<!-- BACKGROUND RADAR (Animated) -->
-<g>
-    <animateTransform attributeName="transform" type="rotate" from="0 500 425" to="360 500 425" dur="15s" repeatCount="indefinite" />
-    <circle cx="500" cy="425" r="350" fill="none" stroke="var(--cyan-dim)" stroke-width="1" stroke-dasharray="10 30" opacity="0.3"/>
-    <circle cx="500" cy="425" r="200" fill="none" stroke="var(--cyan-dim)" stroke-width="1" stroke-dasharray="5 15" opacity="0.2"/>
-    <path d="M500,425 L500,75 A350,350 0 0,1 850,425 Z" fill="url(#radar-sweep)"/>
-</g>
+<!-- ======================= LEFT COLUMN: IDENTITY ======================= -->
+<text x="50" y="100" class="h1-mega">Sarvesh</text>
+<text x="50" y="145" class="h1-mega">Nakhale</text>
+<text x="50" y="180" class="role-text">Backend Engineer</text>
 
-<!-- CRT SCANNING LINE -->
-<line x1="0" y1="0" x2="1000" y2="0" stroke="var(--cyan-bright)" stroke-width="2" opacity="0.3">
-  <animate attributeName="y1" values="-10; 860; -10" dur="8s" repeatCount="indefinite" />
-  <animate attributeName="y2" values="-10; 860; -10" dur="8s" repeatCount="indefinite" />
-</line>
+<line x1="50" y1="210" x2="280" y2="210" class="sep" />
 
-<!-- ===================== TOP HEADER ===================== -->
-<text x="30" y="40" class="term-p">&gt; SYSTEM.BOOT_SEQUENCE... <tspan class="term-glow">OK</tspan></text>
-<text x="30" y="65" class="term-p">&gt; AUTHENTICATION [NAKHALE_S]... <tspan class="term-glow">GRANTED</tspan></text>
-<text x="30" y="90" class="term-p">&gt; LOADING GHOST_OS... 100%</text>
+<text x="50" y="245" class="body-text">I build clean, functional</text>
+<text x="50" y="270" class="body-text">backend systems and</text>
+<text x="50" y="295" class="body-text">applications that solve</text>
+<text x="50" y="320" class="body-text">real-world problems.</text>
 
-<!-- Blinking Cursor -->
-<rect x="290" y="75" width="10" height="18" fill="var(--cyan-bright)">
-    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
-</rect>
+<text x="50" y="375" class="contact-label">Contact Info</text>
+<text x="50" y="405" class="contact-val">📍 Maharashtra, India</text>
+<text x="50" y="435" class="contact-val">✉️ sarveshnakhale21@gmail.com</text>
+<text x="50" y="465" class="contact-val">🌐 sarvy.vercel.app</text>
 
-<!-- ===================== LEFT PANEL: TELEMETRY ===================== -->
-<path class="hud-panel" d="M30 140 L380 140 L380 800 L50 800 L30 780 Z" />
-<!-- Top-Left Corner Accent -->
-<polyline class="hud-corner" points="30,160 30,140 50,140" />
-<!-- Bottom-Right Corner Accent -->
-<polyline class="hud-corner" points="360,800 380,800 380,780" />
+<!-- Global Vertical Separator -->
+<line x1="320" y1="50" x2="320" y2="800" class="sep" />
 
-<text x="50" y="170" class="term-h1">[ SYSTEM TELEMETRY ]</text>
+<!-- ======================= RIGHT COLUMN: PORTFOLIO ======================= -->
 
-<text x="50" y="220" class="term-p">&gt; CLASS  : BACKEND_ENGINEER</text>
-<text x="50" y="245" class="term-p">&gt; PING   : sarveshnakhale21@gmail.com</text>
-<text x="50" y="270" class="term-p">&gt; LOC    : MAHARASHTRA_IND</text>
-<text x="50" y="295" class="term-p">&gt; STATUS : <tspan class="term-glow">AVAILABLE_FOR_MISSION</tspan></text>
+<!-- SECTION 1: KEY EXPERTISE -->
+<text x="360" y="100" class="section-title">Key Expertise</text>
+<line x1="360" y1="125" x2="950" y2="125" class="sep" />
 
-<text x="50" y="360" class="term-h2">[ GITHUB_DATALINK ]</text>
-<text x="50" y="400" class="term-p">REPOS  : <tspan class="term-bright" style="fill:#fff;">{repos:03d}</tspan> <tspan class="term-glow">[ONLINE]</tspan></text>
-<text x="50" y="425" class="term-p">STARS  : <tspan class="term-bright" style="fill:#fff;">{stars:03d}</tspan> <tspan class="term-glow">[SYNCED]</tspan></text>
-<text x="50" y="450" class="term-p">FOLLOW : <tspan class="term-bright" style="fill:#fff;">{followers:03d}</tspan> <tspan class="term-glow">[ACTIVE]</tspan></text>
+<!-- Block 1 -->
+<text x="360" y="165" class="block-title">Core Backend</text>
+<text x="360" y="195" class="block-desc">Java, Spring Boot</text>
 
-<text x="50" y="520" class="term-h2">[ NETWORK_PROTOCOLS ]</text>
-<text x="50" y="560" class="term-p">&gt; ssh://github.user</text>
-<text x="50" y="585" class="term-p">&gt; https://linkedin.auth</text>
-<text x="50" y="610" class="term-p">&gt; ws://twitter.com/x</text>
-<text x="50" y="635" class="term-p">&gt; rpc://discord.server</text>
+<line x1="550" y1="145" x2="550" y2="215" class="sep" />
 
-<!-- ===================== RIGHT PANEL: SUBROUTINES ===================== -->
-<path class="hud-panel" d="M430 140 L410 160 L410 800 L950 800 L970 780 L970 140 Z" />
-<!-- Top-Right Corner Accent -->
-<polyline class="hud-corner" points="950,140 970,140 970,160" />
-<!-- Bottom-Left Corner Accent -->
-<polyline class="hud-corner" points="410,780 410,800 430,800" />
+<!-- Block 2 -->
+<text x="580" y="165" class="block-title">Data Engineering</text>
+<text x="580" y="195" class="block-desc">SQL, JSON, Rest APIs</text>
 
-<text x="440" y="170" class="term-h1">[ ACTIVE SUBROUTINES ]</text>
+<line x1="770" y1="145" x2="770" y2="215" class="sep" />
 
-<text x="440" y="220" class="term-h2">[ CORE_OBJECTIVE ]</text>
-<text x="440" y="250" class="term-p">&gt; I build offline relational databases embedded in images,</text>
-<text x="440" y="275" class="term-p">&gt; parasitic AI engines intercepting LLM API calls,</text>
-<text x="440" y="300" class="term-p">&gt; and ICMP ghost protocols.</text>
+<!-- Block 3 -->
+<text x="800" y="165" class="block-title">Kernel &amp; Tooling</text>
+<text x="800" y="195" class="block-desc">Linux, Git, System I/O</text>
 
-<text x="440" y="360" class="term-h2">[ ARCHITECTURE_LOG ]</text>
-<text x="440" y="390" class="term-p">&gt; COMPILING_PAYLOADS : <tspan style="fill:#fff;">Java, Spring Boot, SQL</tspan></text>
-<text x="440" y="415" class="term-p">&gt; FRONTEND_MATRIX    : <tspan style="fill:#fff;">HTML, CSS, JS</tspan></text>
-<text x="440" y="440" class="term-p">&gt; KERNEL_ENV         : <tspan style="fill:#fff;">Linux, Git</tspan></text>
-<text x="440" y="465" class="term-p">&gt; DISTRIBUTED_LEDGER : <tspan style="fill:#fff;">Blockchain</tspan></text>
 
-<text x="440" y="530" class="term-h2">[ CLASSIFIED_MODULES ]</text>
+<!-- SECTION 2: TELEMETRY -->
+<text x="360" y="275" class="section-title">Activity &amp; Contributions</text>
+<line x1="360" y1="300" x2="950" y2="300" class="sep" />
 
-<!-- Subroutine 1 -->
-<text x="440" y="570" class="term-alert">[EXECUTING]</text>
-<text x="550" y="570" class="term-p">-&gt; subtext.exe (Rust/SQL)</text>
-<text x="440" y="595" class="term-p">&gt; High-performance offline relational DB that</text>
-<text x="440" y="615" class="term-p">&gt; mathematically embeds SQL in images.</text>
+<text x="360" y="360" class="stat-lbl">Repositories</text>
+<text x="360" y="405" class="stat-val">{repos}</text>
 
-<!-- Subroutine 2 -->
-<text x="440" y="655" class="term-glow">[ACTIVE]</text>
-<text x="525" y="655" class="term-p">-&gt; specter.ts (TypeScript/WebGPU)</text>
-<text x="440" y="680" class="term-p">&gt; Zero-cost parasitic AI engine intercepting</text>
-<text x="440" y="700" class="term-p">&gt; LLM API calls to run locally on hardware.</text>
+<line x1="550" y1="330" x2="550" y2="420" class="sep" />
 
-<!-- Subroutine 3 -->
-<text x="440" y="740" class="term-p" style="fill:#fff;">[STEALTH]</text>
-<text x="535" y="740" class="term-p">-&gt; voidNet.sys (TypeScript/Network)</text>
-<text x="440" y="765" class="term-p">&gt; The ICMP Ghost Protocol. Unstoppable network</text>
-<text x="440" y="785" class="term-p">&gt; tunnel disguised as standard Pings.</text>
+<text x="580" y="360" class="stat-lbl">Star Gazers</text>
+<text x="580" y="405" class="stat-val">{stars}</text>
+
+<line x1="770" y1="330" x2="770" y2="420" class="sep" />
+
+<text x="800" y="360" class="stat-lbl">Followers</text>
+<text x="800" y="405" class="stat-val">{followers}</text>
+
+
+<!-- SECTION 3: FEATURED ARCHITECTURE -->
+<text x="360" y="485" class="section-title">Featured Architecture</text>
+<line x1="360" y1="510" x2="950" y2="510" class="sep" />
+
+<!-- Proj 1 -->
+<text x="360" y="550" class="proj-title">Project: subtext</text>
+<text x="360" y="575" class="proj-desc">High-performance offline relational DB mathematically embedding SQL in images.</text>
+<text x="360" y="600" class="proj-tech">Rust, SQL</text>
+
+<!-- Proj 2 -->
+<text x="360" y="650" class="proj-title">Project: specter</text>
+<text x="360" y="675" class="proj-desc">Zero-cost parasitic AI engine intercepting LLM API calls to run locally on hardware.</text>
+<text x="360" y="700" class="proj-tech">TypeScript, WebGPU</text>
+
+<!-- Proj 3 -->
+<text x="360" y="750" class="proj-title">Project: voidNet</text>
+<text x="360" y="775" class="proj-desc">The ICMP Ghost Protocol. Unstoppable network tunnel disguised as standard Pings.</text>
+<text x="360" y="800" class="proj-tech">TypeScript, Network</text>
 
 </svg>
 """
